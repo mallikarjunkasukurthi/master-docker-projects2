@@ -1,0 +1,33 @@
+trigger:
+- master
+pool:
+- VmImage: 'ubuntu-latest'
+# pipeline > stages > jobs > tasks(steps)
+
+jobs:
+- job: job1
+steps:
+- script: echo job1 -hello, world, changed!
+  displayName: ' Run a one -line script'
+- script: 
+    echo add other tasks to build, test, deploy your project
+    echo see https:// aka.ms/ymal  
+    echo more information
+  displayName:' Run a multi-line script'
+- job: job2
+  dependsOn: job1
+  steps:
+  - script: echo job2!
+    displayName: 'Run a one -line script'
+- job: job3
+  dependsOn: job1
+  steps:
+  - script: echo job!
+    displayName: ' Run aone -line script'
+- job: job4
+dependsOn:
+- job2
+- job3
+steps:
+- script: echo job3!
+  displayName: ' Run a one line script'          
